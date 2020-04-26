@@ -113,11 +113,23 @@ int intersectionSetArrayChangeReturn(int*a1,int*a2,int*a3,int n1,int n2)
   hashFunction(a1,hashMap,n1);
   for(int j=0;j<n2;j++)
   {
-    if(hashMap[a2[j]]==1)
+    if(a2[j]>=0)
     {
-      a3[index]=a2[j];
-      index++;
-      continue;
+      if(hashMap[a2[j]]==1)
+      {
+        a3[index]=a2[j];
+        index++;
+        continue;
+      }
+    }
+    else
+    {
+      if(hashMap[10000+a2[j]]==1)
+      {
+        a3[index]=a2[j];
+        index++;
+        continue;
+      }
     }
   }
   return index;
@@ -175,6 +187,8 @@ int main()
   int a1[1000];
   int a2[1000];
   int n1,n2;
+  cout<<endl<<"Name - Daksh Gupta"<<endl;
+  cout<<"Roll no. - 2019UCO1669"<<endl<<endl;
   cout<<"Enter the number of elements of set 1:\n";
   cin>>n1;
   cout<<"Enter the elemets of set 1:\n";
@@ -193,7 +207,7 @@ int main()
   int add[10000];int sub[10000];
   int u[10000];int intersection[10000];
   int diff[10000];int symmDiff[10000];
-  int n;
+  int n=0;
   n=additionSet(a1,a2,n1,n2,add);
   cout<<"Addition: ";print(add,n);
   n=subtractionSet(a1,a2,n1,n2,sub);
