@@ -28,9 +28,9 @@ int operation(int p,int q,char ch)
 bool isClosure(int*s,int n,char ch)
 {
   int result=0;
-  for(int i=0;i<n-1;i++)
+  for(int i=0;i<n;i++)
   {
-    for(int j=i+1;j<n;j++)
+    for(int j=0;j<n;j++)
     {
       result=operation(s[i],s[j],ch);
       if(!linearSearch(s,n,result)) return false;
@@ -99,6 +99,8 @@ bool isGroup(int*s,int n,char ch)
 int main()
 {
   int n;char ch;
+  cout<<endl<<"Name - Daksh Gupta"<<endl;
+  cout<<"Roll no. - 2019UCO1669"<<endl<<endl;
   cout<<"Enter the number of elements in the set:\n";
   cin>>n;
   cout<<"Enter the elements of the set:\n";
