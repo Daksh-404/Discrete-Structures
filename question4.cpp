@@ -79,9 +79,10 @@ bool ifEquivalence(p*r,int n,int m)
 }
 int main()
 {
-  //int set[10000];
   p relation[10000];
   int n,m;
+  cout<<endl<<"Name - Daksh Gupta"<<endl;
+  cout<<"Roll no. - 2019UCO1669"<<endl<<endl;
   cout<<"Enter number of elements of your set:\n";
   cin>>n;
   cout<<"Enter number of elements of your relation:\n";
@@ -95,7 +96,6 @@ int main()
     relation[i].first=x;
     relation[i].second=y;
   }
-//  if(isSymmetric(relation,m))cout<<"true";
   if(ifEquivalence(relation,n,m)) cout<<"The given relation is an equivalence relation!\n";
   else cout<<"The given relation is not an equivalence relation\n";
   return 0;
