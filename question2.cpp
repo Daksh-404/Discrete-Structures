@@ -3,22 +3,50 @@ using namespace std;
 typedef pair<int,int>p;
 void print(p*a,int n)
 {
-  for(int i=0;i<n;i++)
-  {
-    if(a[i].second>0)
+  int count=0;
+    for(int i=0;i<n;i++)
     {
-      for(int j=0;j<a[i].second;j++)
+      if(a[i].second>0)
       {
-        cout<<a[i].first<<" ";
+        for(int j=0;j<a[i].second;j++)
+        {
+          cout<<a[i].first<<" ";
+        }
+      }
+      else
+      {
+        count++;
       }
     }
-  }
+    if(count==n) cout<<"Empty!";
   cout<<endl;
+}
+int partition(int*a,int s,int e)
+{
+  int i=s-1;
+  for(int j=s;j<=e-1;j++)
+  {
+    if(a[e]>=a[j])
+    {
+      i++;
+      swap(a[i],a[j]);
+    }
+  }
+  swap(a[e],a[i+1]);
+  return i+1;
+}
+void quickSort(int*a,int s,int e)
+{
+  if(s>=e)
+  {
+    return;
+  }
+  int p=partition(a,s,e);
+  quickSort(a,s,p-1);
+  quickSort(a,p+1,e);
 }
 void shiftForward(p*a,int n,int i)
 {
-  //for shifting the elemets back to
-  //delete an element
   for(int j=n;j>i;j--)
   {
     a[j].first=a[j-1].first;
@@ -80,10 +108,20 @@ void correctingOrder(p*a1,p*a2,int n1,int n2)
   {
     if(a1[i].first!=a2[j].first)
     {
-      shiftForward(a2,n2,j);
-      n2++;
-      a2[j].first=a1[i].first;
-      a2[j].second=0;
+      if(a1[i].first>a2[j].second)
+      {
+        shiftForward(a1,n1,i);
+        n1++;
+        a1[i].first=a2[j].first;
+        a1[i].second=0;
+      }
+      else
+      {
+        shiftForward(a2,n2,j);
+        n2++;
+        a2[j].first=a1[i].first;
+        a2[j].second=0;
+      }
     }
   }
   if(n1>n2)
@@ -122,17 +160,23 @@ int main()
 {
   int n1,n2;
   p a1[10000];p a2[10000];
+  int temp1[10000];int temp2[10000];
+  cout<<endl<<"Name - Daksh Gupta"<<endl;
+  cout<<"Roll no. - 2019UCO1669"<<endl<<endl;
   cout<<"Enter the number of elements of set 1:\n";
   cin>>n1;
   cout<<"Enter the elemets of set 1:\n";
-  int x;
-  cin>>x;
+  for(int i=0;i<n1;i++)
+  {
+    cin>>temp1[i];
+  }
+  quickSort(temp1,0,n1-1);
+  int x=temp1[0];int index=0;
   int prev=x;
-  int index=0;
   a1[0].first=x;a1[0].second=1;
   for(int i=1;i<n1;i++)
   {
-    cin>>x;
+    x=temp1[i];
     if(prev!=x)
     {
       index++;
@@ -147,13 +191,18 @@ int main()
   n1=index+1;
   cout<<"Enter the number of elements of set 2:\n";
   cin>>n2;
-  //if(n1==0&&n2==0) cout<<"No Possible Operation\n";
   cout<<"Enter the elemets of set 2:\n";
-  cin>>x;index=0;prev=x;
+  for(int i=0;i<n2;i++)
+  {
+    cin>>temp2[i];
+  }
+  quickSort(temp2,0,n2-1);
+  x=temp2[0];
+  index=0;prev=x;
   a2[0].first=x;a2[0].second=1;
   for(int i=1;i<n2;i++)
   {
-    cin>>x;
+    x=temp2[i];
     if(prev!=x)
     {
       index++;
