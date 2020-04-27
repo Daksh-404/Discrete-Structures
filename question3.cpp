@@ -84,7 +84,6 @@ void logicalDetermination(char*in,int n)
             }
             if(ch=='&'||ch=='|'||ch=='-'||ch=='#')
             {
-              //p=in[j-1]-'0';
               if(in[j-1]==')')
               {
                   p=s[f-1]-'0';
@@ -184,6 +183,8 @@ int main()
 {
   char inp[100];
   int n;
+  cout<<endl<<"Name - Daksh Gupta"<<endl;
+  cout<<"Roll no. - 2019UCO1669"<<endl<<endl;
   cout<<"Enter the number of variables:\n";
   cin>>n;
   cout<<"Enter the expression to be evaluated:\n";
