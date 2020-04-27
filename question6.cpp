@@ -1,8 +1,8 @@
 #include<iostream>
 using namespace std;
-int index=0;
+int ix=0;
 int s;
-void printNextPermute(string list[100],int idx)
+void printNextPermute(string list[10000],int idx)
 {
   for(int i=0;i<idx-1;i++)
   {
@@ -16,7 +16,6 @@ void printNextPermute(string list[100],int idx)
       }
     }
   }
-  //printing the list
   for(int i=0;i<idx;i++)
   {
     if(list[i].length()==0)
@@ -27,16 +26,14 @@ void printNextPermute(string list[100],int idx)
   }
   return;
 }
-void permute(string str,int start,string list[100])
+void permute(string str,int start,string list[10000])
 {
-  //base case
   if(str[start]=='\0')
   {
-    list[index]=str;
-    index++;
+    list[ix]=str;
+    ix++;
     return;
   }
-  //recursive case
   for(int i=start;i<str.length();i++)
   {
     swap(str[i],str[start]);
@@ -45,7 +42,7 @@ void permute(string str,int start,string list[100])
   }
   return;
 }
-void combination(string key,string output,string list[1000])
+void combination(string key,string output,string list[10000])
 {
     if(key.length()==0)
     {
@@ -59,12 +56,14 @@ void combination(string key,string output,string list[1000])
 int main()
 {
   string key;
-//  string list[100];
   string output;
-  string list[1000];
+  string list[10000];
+  cout<<endl<<"Name - Daksh Gupta"<<endl;
+  cout<<"Roll no. - 2019UCO1669"<<endl<<endl;
   cout<<"Enter the keyword:\n";
   cin>>key;
   combination(key,output,list);
-  printNextPermute(list,index);
+  cout<<"All the possible combinations are:\n";
+  printNextPermute(list,ix);
   return 0;
 }
