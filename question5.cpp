@@ -1,7 +1,7 @@
 #include<iostream>
 using namespace std;
 int index=0;
-void printNextPermute(string list[100],int idx,string key)
+void printNextPermute(string list[10000],int idx,string key)
 {
   for(int i=0;i<idx-1;i++)
   {
@@ -15,7 +15,6 @@ void printNextPermute(string list[100],int idx,string key)
       }
     }
   }
-  //linear search
   for(int i=0;i<idx;i++)
   {
     if(list[i]==key)
@@ -26,16 +25,14 @@ void printNextPermute(string list[100],int idx,string key)
   }
   return;
 }
-void permute(string str,int start,string list[100])
+void permute(string str,int start,string list[10000])
 {
-  //base case
   if(str[start]=='\0')
   {
     list[index]=str;
     index++;
     return;
   }
-  //recursive case
   for(int i=start;i<str.length();i++)
   {
     swap(str[i],str[start]);
@@ -47,13 +44,13 @@ void permute(string str,int start,string list[100])
 int main()
 {
   string key;
-  string list[100];
+  string list[10000];
+  cout<<endl<<"Name - Daksh Gupta"<<endl;
+  cout<<"Roll no. - 2019UCO1669"<<endl<<endl;
   cout<<"Enter the keyword:\n";
-  cin>>key;
+  getline(cin,key);
   permute(key,0,list);
-  //cout<<index;
-  //cout<<list[1];
-  //cout<<"The next permutation of the above key word: ";
+  cout<<"The next permutation of the above key word: ";
   printNextPermute(list,index,key);
   return 0;
 }
