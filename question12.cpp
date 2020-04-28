@@ -5,8 +5,7 @@ int track[100]={0};
 int track3[100];
 int visited[100]={0};
 int parent[100];int color[100][100];
-int son[100];
-int no=0;int idx=0;int sc=0;
+int idx=0;int sc=0;
 int FLAG=0;
 void createGraph()
 {
@@ -24,7 +23,6 @@ void createGraph()
     track[element]++;
     graph[track[neighbour]][neighbour]=element;
     track[neighbour]++;
-    no++;
     cin>>element;
     if(element==-1) break;
     cin>>neighbour;
@@ -49,7 +47,6 @@ void backPrinting(int*parent,int dest)
   while(dest!=sc)
   {
     cout<<dest<<"<-";
-    //visited[dest]=false;
     dest=parent[dest];
   }
   cout<<dest<<endl;
@@ -61,13 +58,8 @@ void backCyclePrinting(int dest,int final)
   while(dest!=final)
   {
     cout<<dest<<"<-";
-    visited[dest]=0;
-    t=parent[dest];
-    //parent[dest]=100000;
-    dest=t;
+    dest=parent[dest];
   }
-  visited[dest]=0;
-  //parent[dest]=100000;
   cout<<dest<<"<-"<<k<<endl;
   return;
 }
@@ -81,47 +73,40 @@ void colorFunction(int src,int dest)
     s=parent[s];
   }
   temp[i]=s;i++;
-  int flag=0;int k,l;
+  int flag=0;int k,x,l;
   bubbleSort(temp,i);
   int len=i;
   if(idx==0) flag=1;
   if(idx>0)
   {
-    for(k=0;k<idx;k++)
-    {
-      if(temp[0]==color[k][0])
+      for(x=0;x<idx;x++)
       {
-        break;flag=0;
+          if(track3[x]==len)
+          {
+              flag=0;break;
+          }
       }
-    }
-    if(k==idx) flag=1;
-    if(track3[k]!=len) flag=1;
-    if(!flag)
-    {
-      for(l=1;l<track3[k];l++)
+      if(x==idx) flag=1;
+      if(!flag)
       {
-        if(temp[l]!=color[k][l])
-        {
-          flag=1;break;
-        }
+          for(k=x;k<idx;k++)
+          {
+              for(l=0;l<track3[k]&&track3[k]==len;l++)
+              {
+                  if(temp[l]!=color[k][l])
+                  {
+                      break;
+                  }
+              }
+              if(l==track3[k])
+              {
+                  flag=0;FLAG=0;return;
+              }
+          }
+          if(k==idx) flag=1;
       }
-      if(l==track3[k])
-      {
-        flag=0;
-        FLAG=0;
-        int st=src;int f=dest;int t;
-        while(st!=dest)
-        {
-          t=parent[st];
-          visited[st]=0;
-          //parent[st]=100000;
-          st=t;
-        }
-        visited[st]=0;
-        //parent[st]=100000;
-      }
-    }
   }
+
   if(flag)
   {
     FLAG=1;
@@ -138,8 +123,8 @@ void printingPath(int src,int dest)
 {
   if(src==dest)
   {
-    parent[dest]==100000;
     backPrinting(parent,dest);
+    parent[src]=100000;
     return;
   }
   for(int i=0;i<track[src];i++)
@@ -158,36 +143,30 @@ void printingPath(int src,int dest)
 }
 void cyclePrinting(int src)
 {
-  int prev;
   for(int i=0;i<track[src];i++)
   {
     int neighbour=graph[i][src];
-    if(!visited[neighbour]&&parent[src]!=neighbour&&son[neighbour]!=src)
+    if(!visited[neighbour])
     {
       parent[neighbour]=src;
-      son[src]=neighbour;
       visited[src]=1;
       cyclePrinting(neighbour);
     }
     else
     {
-      if(parent[src]!=neighbour&&son[neighbour]!=src)
+      if(parent[src]!=neighbour)
       {
         colorFunction(src,neighbour);
         if(FLAG)
         {
-          if(i>0)
-          {
-            int prev=graph[i-1][src];
-            parent[prev]=100000;
-            son[prev]=100000;
-          }
           backCyclePrinting(src,neighbour);
         }
 
       }
     }
   }
+  visited[src]=0;
+  parent[src]=100000;
   return;
 }
 int main()
